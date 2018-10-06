@@ -32,3 +32,11 @@ Build with:
 $ clang++ -std=c++17 variant.cpp -o ./bin/variant
 $ ./bin/variant
 ```
+
+## Virtual
+
+Build with:
+```
+$ clang++ -std=c++17 virtual.cpp -o ./bin/virtual
+$ ./bin/virtual
+```
