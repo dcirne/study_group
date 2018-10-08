@@ -40,3 +40,12 @@ Build with:
 $ clang++ -std=c++17 virtual.cpp -o ./bin/virtual
 $ ./bin/virtual
 ```
+
+## Scoped enum, Delete, and Override
+
+Build with:
+```
+$ clang++ -std=c++17 -Wall modern.cpp -o ./bin/modern
+$ ./bin/modern
+```
+

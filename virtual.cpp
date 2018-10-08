@@ -1,3 +1,12 @@
+/*
+    inheritance,
+    polymorphism,
+    virtual,
+    noexcept,
+    override,
+    final
+*/
+
 #include <iostream>
 #include <string>
 
@@ -9,18 +18,23 @@ protected:
     Base(const std::string val) : _val(val) {}
 
 public:
-    std::string description() const { return "base class"; }
-    virtual std::string name() const { return "base"; }
-    std::string val() const { return _val; }
+    std::string description() const noexcept { return "base class"; }
+    virtual std::string name() const noexcept { return "base"; }
+    std::string val() const noexcept { return _val; }
 };
 
-class Derived : public Base {
+class Derived final : public Base {
 public:
     Derived(const std::string val) : Base(val) {}
 
-    std::string description() const { return "derived class"; }
-    std::string name() const override { return "derived"; }
+    std::string description() const noexcept { return "derived class"; }
+    std::string name() const noexcept override { return "derived"; }
 };
+
+// class SecondDerivation : public Derived {
+// public:
+//     SecondDerivation(const std::string val) : Derived(val) {}
+// };
 
 void refFunc(const Base &b) {
     std::cout << "refFunc – Class description is: " << b.description() << std::endl;
