@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package hitchhiker;
+
+service Computer {
+    rpc Inquire(Question) returns(Answer) {}
+}
+
+message Question {
+    string text = 1;
+}
+
+message Answer {
+    string text = 1;
+}
+
