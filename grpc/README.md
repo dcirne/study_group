@@ -87,7 +87,7 @@ clang++ DeepThought.cpp ./build/hitchhiker.pb.o ./build/hitchhiker.grpc.pb.o -st
 clang++ Magrathean.cpp ./build/hitchhiker.pb.o ./build/hitchhiker.grpc.pb.o -std=c++17 -L/usr/local/lib $(pkg-config --libs protobuf grpc++ grpc) -lgrpc++_reflection -ldl -o ./bin/Magrathean
 ```
 
-## Ask que ultimate question
+## Ask the ultimate question
 
 In one terminal run Deep Though
 
