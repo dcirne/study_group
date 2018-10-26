@@ -77,7 +77,7 @@ clang++ hitchhiker.pb.cc -std=c++17 -c -o ./build/hitchhiker.pb.o
 clang++ hitchhiker.grpc.pb.cc -std=c++17 -c -o ./build/hitchhiker.grpc.pb.o
 ```
 
-Build the server and client
+### Build the synchronous server and client
 
 ```bash
 clang++ DeepThought.cpp ./build/hitchhiker.pb.o ./build/hitchhiker.grpc.pb.o -std=c++17 -L/usr/local/lib $(pkg-config --libs protobuf grpc++ grpc) -lgrpc++_reflection -ldl -o ./bin/DeepThought
@@ -87,7 +87,7 @@ clang++ DeepThought.cpp ./build/hitchhiker.pb.o ./build/hitchhiker.grpc.pb.o -st
 clang++ Magrathean.cpp ./build/hitchhiker.pb.o ./build/hitchhiker.grpc.pb.o -std=c++17 -L/usr/local/lib $(pkg-config --libs protobuf grpc++ grpc) -lgrpc++_reflection -ldl -o ./bin/Magrathean
 ```
 
-## Ask the ultimate question
+#### Ask the ultimate question
 
 In one terminal run Deep Though
 
@@ -101,3 +101,30 @@ In another terminal, run Magrathean
 ./bin/Magrathean
 ```
 
+### Build the asynchronous server and client
+
+```bash
+clang++ DeepThought_Async.cpp ./build/hitchhiker.pb.o ./build/hitchhiker.grpc.pb.o -std=c++17 -L/usr/local/lib $(pkg-config --libs protobuf grpc++ grpc) -lgrpc++_reflection -ldl -o ./bin/DeepThought_Async
+```
+
+```bash
+clang++ Magrathean_Async.cpp ./build/hitchhiker.pb.o ./build/hitchhiker.grpc.pb.o -std=c++17 -L/usr/local/lib $(pkg-config --libs protobuf grpc++ grpc) -lgrpc++_reflection -ldl -o ./bin/Magrathean_Async
+```
+
+#### Ask the ultimate question
+
+In one terminal run Deep Though
+
+```bash
+./bin/DeepThought_Async
+```
+
+In another terminal, run Magrathean
+
+```bash
+./bin/Magrathean_Async
+```
+
+### Try mixing sync and async
+
+You can mix the excution of synchronous and asynchronous client and server. Try, see what happens.
