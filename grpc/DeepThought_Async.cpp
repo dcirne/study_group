@@ -1,6 +1,7 @@
 #include "hitchhiker.pb.h"
 #include "hitchhiker.grpc.pb.h"
 
+#include <chrono>
 #include <grpcpp/grpcpp.h>
 #include <iostream>
 #include <memory>
@@ -21,7 +22,8 @@ class DeepThought final {
             _completionQueue->Next(&uniqueRequestPtr, &success);
 
             if (success) {
-                static_cast<RequestHandler *>(uniqueRequestPtr)->Think();
+                auto requestHandler = static_cast<RequestHandler *>(uniqueRequestPtr);
+                requestHandler->Think();
             }
         }
     }
@@ -60,8 +62,11 @@ class DeepThought final {
                     new RequestHandler(_asyncService, _completionQueue);
                     std::string answerText;
 
+                    std::cout << _question.text() << std::endl;
+
                     if (_question.text() == "What is answer to the ultimate question of life, the universe, and everything?") {
                         answerText = "The answer is: 42";
+                        std::this_thread::sleep_for(std::chrono::seconds(2));
                     } else if (_question.text() == "How many roads must a man walk down?") {
                         answerText = "At least one.";
                     }
