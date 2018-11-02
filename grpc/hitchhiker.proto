@@ -4,6 +4,7 @@ package hitchhiker;
 
 service Computer {
     rpc Inquire(Question) returns(Answer) {}
+    rpc Inquires(stream Question) returns(stream Answer) {}
 }
 
 message Question {
