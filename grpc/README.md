@@ -30,14 +30,23 @@ git submodule update
 
 ## Building gRPC
 
-Follow these instructions (https://github.com/grpc/grpc/blob/master/BUILDING.md) to build gRPC C++ from source.
-
 In case you have a previous version of gRPC installed on your computer, you will need to remove the installed headers from `usr/local/include`. Just run:
 
 ```bash
 sudo rm -rf /usr/local/include/grpc++
 sudo rm -rf /usr/local/include/grpc
 ```
+
+Follow these instructions (https://github.com/grpc/grpc/blob/master/BUILDING.md) to build gRPC C++ from source.
+
+After `make` finishes executing, run:
+
+```bash
+sudo make install
+```
+
+This step is needed to install gRPC's libraries and headers in the system directories.
+
 
 ## Generating the protobuf and gRPC classes
 
@@ -128,3 +137,57 @@ In another terminal, run Magrathean
 ### Try mixing sync and async
 
 You can mix the excution of synchronous and asynchronous client and server. Try, see what happens.
+
+
+## Stream
+
+Now let's take a look at streams. When you need to place multiple requests at once, receive multiple responses at once, or both, you use streams (Read and Write)
+
+### Build the synchronous stream server and client
+
+```bash
+clang++ DeepThought.cpp ./build/hitchhiker.pb.o ./build/hitchhiker.grpc.pb.o -std=c++17 -L/usr/local/lib $(pkg-config --libs protobuf grpc++ grpc) -lgrpc++_reflection -ldl -o ./bin/DeepThought
+```
+
+```bash
+clang++ Magrathean.cpp ./build/hitchhiker.pb.o ./build/hitchhiker.grpc.pb.o -std=c++17 -L/usr/local/lib $(pkg-config --libs protobuf grpc++ grpc) -lgrpc++_reflection -ldl -o ./bin/Magrathean
+```
+
+#### Ask the ultimate question
+
+In one terminal run Deep Though
+
+```bash
+./bin/DeepThought
+```
+
+In another terminal, run Magrathean
+
+```bash
+./bin/Magrathean
+```
+
+
+### Build the asynchronous stream server and client
+
+```bash
+clang++ DeepThought_AsyncStream.cpp ./build/hitchhiker.pb.o ./build/hitchhiker.grpc.pb.o -std=c++17 -L/usr/local/lib $(pkg-config --libs protobuf grpc++ grpc) -lgrpc++_reflection -ldl -o ./bin/DeepThought_AsyncStream
+```
+
+```bash
+clang++ Magrathean_Stream.cpp ./build/hitchhiker.pb.o ./build/hitchhiker.grpc.pb.o -std=c++17 -L/usr/local/lib $(pkg-config --libs protobuf grpc++ grpc) -lgrpc++_reflection -ldl -o ./bin/Magrathean_Stream
+```
+
+#### Ask the ultimate question
+
+In one terminal run Deep Though
+
+```bash
+./bin/DeepThought_AsyncStream
+```
+
+In another terminal, run Magrathean
+
+```bash
+./bin/Magrathean_Stream
+```
