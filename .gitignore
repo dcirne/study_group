@@ -15,6 +15,7 @@ Thumbs.db
 
 # Compiled C++ files
 *.out
+*.gch
 
 # Application specific files
 venv
