@@ -5,9 +5,24 @@
 
 #include <list>
 #include <mutex>
+#include <string>
 
 class Subject {
-    std::list<Observer *> _observers;
+    struct Observation final {
+        Observer *observer = nullptr;
+        void (*callback)(Subject *, Observer *observer, const std::string) = nullptr;
+        std::string message;
+
+        bool operator==(const Observation &rhs) {
+            return observer == rhs.observer && message.compare(rhs.message) == 0;
+        }
+
+        bool operator!=(const Observation &rhs) {
+            return !(*this == rhs);
+        }
+    };
+
+    std::list<Observation> _observationList;
     std::mutex _observersMutex;
 
 protected:
@@ -15,9 +30,9 @@ protected:
 
 public:
     virtual ~Subject() = default;
-    virtual void attach(Observer *observer) noexcept;
-    virtual void detach(Observer *observer) noexcept;
-    virtual void notify() noexcept;
+    virtual void attach(Observer *observer, void (*callback)(Subject *, Observer *observer, const std::string), const std::string message) noexcept;
+    virtual void detach(Observer *observer, const std::string message) noexcept;
+    virtual void notify(const std::string message) noexcept;
 };
 
 #endif

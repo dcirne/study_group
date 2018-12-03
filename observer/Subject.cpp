@@ -1,25 +1,41 @@
 #include "Subject.hpp"
 
-void Subject::attach(Observer *observer) noexcept {
-    if (observer == nullptr) {
+void Subject::attach(Observer *observer, void (*callback)(Subject *, Observer *observer, std::string), const std::string message) noexcept {
+    if (observer == nullptr || callback == nullptr || message.empty()) {
         return;
     }
 
     std::unique_lock<std::mutex> queueLock(_observersMutex);
-    _observers.push_back(observer);
+
+    Observation observation;
+    observation.observer = observer;
+    observation.callback = callback;
+    observation.message = message;
+    _observationList.push_back(observation);
 }
 
-void Subject::detach(Observer *observer) noexcept {
-    if (observer == nullptr) {
+void Subject::detach(Observer *observer, const std::string message) noexcept {
+    if (observer == nullptr || message.empty()) {
         return;
     }
 
     std::unique_lock<std::mutex> queueLock(_observersMutex);
-    _observers.remove(observer);
+
+    Observation observationToRemove;
+    observationToRemove.observer = observer;
+    observationToRemove.message = message;
+
+    _observationList.remove_if([&observationToRemove](Observation &observation) {
+        return observation == observationToRemove;
+    });
 }
 
-void Subject::notify() noexcept {
-    for (auto iterator = _observers.cbegin(); iterator != _observers.cend(); ++iterator) {
-        (*iterator)->update(this);
+void Subject::notify(const std::string message) noexcept {
+    for (auto iterator = _observationList.cbegin(); iterator != _observationList.cend(); ++iterator) {
+        const Observation *observation = &(*iterator);
+
+        if (message.empty() || message.compare(observation->message) == 0) {
+            observation->callback(this, observation->observer, message);
+        }
     }
 }
