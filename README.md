@@ -1,51 +1,22 @@
 # Study Group
 
-This repository contains sample code from the ongoing study group.
+This repository contains sample code and basic instructions for the ongoing study group.
 
 ## Getting started
 
 Clone this repository.
 
-```
-$ git clone git@github.com:dcirne/study_group.git
-$ cd study_group
-```
-
-Before starting, create a `bin` directory. That is where all binaries should be build to.
-
-```
-$ mkdir bin
+```bash
+git clone git@github.com:dcirne/study_group.git
+cd study_group
 ```
 
-## std::optional
+## How to use it
 
-Build with:
-```
-$ clang++ -std=c++17 optional.cpp -o ./bin/optional
-$ ./bin/optional Chris P. Bacon
-```
+Each directory contains code, usage instructions, and the basics of a topic we have approached in the study group. Change into the directory of interest and read its README file.
 
-## std::variant
+## Requirements
 
-Build with:
-```
-$ clang++ -std=c++17 variant.cpp -o ./bin/variant
-$ ./bin/variant
-```
+The code should work with no problems on Linux and/or macOS. We are assuming you have a compiler supporting at least [C++ 17](https://isocpp.org/std/status) ([clang](https://clang.llvm.org) or [gcc](https://gcc.gnu.org))
 
-## Virtual
-
-Build with:
-```
-$ clang++ -std=c++17 virtual.cpp -o ./bin/virtual
-$ ./bin/virtual
-```
-
-## Scoped enum, Delete, and Override
-
-Build with:
-```
-$ clang++ -std=c++17 -Wall modern.cpp -o ./bin/modern
-$ ./bin/modern
-```
-
+Most of the examples are built using clang. However, there should be no issues when built using gcc.
