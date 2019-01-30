@@ -20,3 +20,7 @@ Each directory contains code, usage instructions, and the basics of a topic we h
 The code should work with no problems on Linux and/or macOS. We are assuming you have a compiler supporting at least [C++ 17](https://isocpp.org/std/status) ([clang](https://clang.llvm.org) or [gcc](https://gcc.gnu.org))
 
 Most of the examples are built using clang. However, there should be no issues when built using gcc.
+
+## License
+
+[Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0). See the LICENSE file for more info.

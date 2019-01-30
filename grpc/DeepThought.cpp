@@ -1,3 +1,17 @@
+// Copyright 2019 Dalmo Cirne
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 #include "hitchhiker.pb.h"
 #include "hitchhiker.grpc.pb.h"
 
@@ -44,7 +58,7 @@ void runDeepThought(const std::string ip, const std::string port) {
     grpc::ServerBuilder serverBuilder;
     serverBuilder.AddListeningPort(serverAddress, grpc::InsecureServerCredentials());
     serverBuilder.RegisterService(&deepThought);
-    
+
     std::unique_ptr<grpc::Server> server(serverBuilder.BuildAndStart());
     std::cout << "Greetings, I am Deep Thought." << std::endl;
     server->Wait();
