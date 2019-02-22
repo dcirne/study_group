@@ -22,10 +22,6 @@ venv
 node_modules
 .sass-cache
 
-# Xcode
-#
-# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
-
 ## Build generated
 build/
 bin/
@@ -43,6 +39,9 @@ Index/
 *.perspectivev3
 !default.perspectivev3
 xcuserdata/
+
+## Backup files
+*~
 
 ## Other
 *.moved-aside
