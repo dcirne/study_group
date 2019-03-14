@@ -76,7 +76,7 @@ Create directories to host the build and binary files. This helps to keep the so
 mkdir build bin
 ```
 
-Compile the proto calsses to objects (`.o` files)
+Compile the proto classes to objects (`.o` files)
 
 ```bash
 clang++ hitchhiker.pb.cc -std=c++17 -c -o ./build/hitchhiker.pb.o
