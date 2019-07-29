@@ -17,17 +17,10 @@ Thumbs.db
 *.out
 *.gch
 
-# Application specific files
-venv
-node_modules
-.sass-cache
-
 ## Build generated
 build/
 bin/
 DerivedData/
-Scripts/protobuf
-Index/
 
 ## Various settings
 *.pbxuser
@@ -48,6 +41,9 @@ xcuserdata/
 *.xccheckout
 *.xcscmblueprint
 
-# Sublime Text project and workspace
-*.sublime-project
-*.sublime-workspace
+## Protobuf generated files
+*.pb.h
+*.pb.cc
+*.grpc.pb.h
+*.grpc.pb.cc
+
