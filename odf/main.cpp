@@ -30,9 +30,9 @@ std::map<ODF::DataType, std::function<void(const ODF::Value &)>> dataTypeFunctio
 //
 void mapUnpackingFunctions() {
     dataTypeFunctionMap[ODF::DataType::FOO] = [](const ODF::Value &value) {
-        Foo foo;
-        value.value().UnpackTo(&foo);
-        std::cout << "    Value song: " << foo.song() << ", playhead: " << foo.playhead() << std::endl;
+        google::protobuf::Message *messagePtr = new Foo();
+        value.value().UnpackTo(messagePtr);
+        std::cout << "    Value song: " << ((Foo *)messagePtr)->song() << ", playhead: " << ((Foo *)messagePtr)->playhead() << std::endl;
     };
 
     dataTypeFunctionMap[ODF::DataType::BAR] = [](const ODF::Value &value) {
@@ -86,7 +86,7 @@ void populateObjects(ODF::Objects &objects) {
     fighters.set_playhead(0.1);
     addMessageToInfoItem(fooInfoItem, &fighters);
 
-    Foo fighters2;
+    decltype(fighters) fighters2;
     fighters2.set_song("Times Like These");
     fighters2.set_playhead(0.3);
     addMessageToInfoItem(fooInfoItem, &fighters2);
@@ -155,7 +155,6 @@ void printValue(const ODF::Value &value, const ODF::DataType dataType) {
 void parseObjects(const ODF::Objects &objects) {
     for (int i = 0; i < objects.objects_size(); ++i) {
         const ODF::Object &obj = objects.objects(i);
-
         std::cout << "Object Id: " << obj.id() << std::endl;
         printObjectDataType(obj);
 
@@ -165,8 +164,7 @@ void parseObjects(const ODF::Objects &objects) {
             std::cout << "  Info item name: " << infoItem.name() << std::endl;
             std::cout << "  Info item description: " << infoItem.description() << std::endl;
 
-            for (int j = 0; j < infoItem.values_size(); ++j) {
-                const ODF::Value &value = infoItem.values(j);
+            for (const auto &value : infoItem.values()) {
                 printValue(value, obj.data_type());
             }
         }
