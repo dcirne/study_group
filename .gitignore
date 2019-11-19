@@ -33,8 +33,9 @@ DerivedData/
 !default.perspectivev3
 xcuserdata/
 
-## Backup files
+## Backup and swap files
 *~
+*.swp
 
 ## Other
 *.moved-aside
