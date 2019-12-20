@@ -15,20 +15,33 @@
 #include "IslandCounter.hpp"
 
 #include <iostream>
+#include <string>
 #include <vector>
 
 int main() {
-    std::vector<std::vector<Cell>> grid = {
-        {Cell(Type::W), Cell(Type::W), Cell(Type::W), Cell(Type::L), Cell(Type::L), Cell(Type::W)}, 
-        {Cell(Type::W), Cell(Type::W), Cell(Type::W), Cell(Type::W), Cell(Type::L), Cell(Type::W)}, 
-        {Cell(Type::W), Cell(Type::W), Cell(Type::W), Cell(Type::L), Cell(Type::L), Cell(Type::W)}, 
-        {Cell(Type::W), Cell(Type::W), Cell(Type::W), Cell(Type::W), Cell(Type::W), Cell(Type::W)}, 
-        {Cell(Type::L), Cell(Type::L), Cell(Type::L), Cell(Type::W), Cell(Type::W), Cell(Type::W)}, 
+    std::vector<std::string> grid = {
+        "WWWLLW",
+        "WWWWLW",
+        "WWWLLW",
+        "WWWWWW",
+        "LLLWWW",
     };
 
     IslandCounter islandCounter;
 
-    const auto numIslands = islandCounter.count(grid);
+    auto numIslands = islandCounter.count(grid);
 
-    std::cout << "Number of islands: " << numIslands << std::endl;
+    std::cout << "Number of islands (Case 1): " << numIslands << std::endl;
+    
+    grid = {
+        "WWWLLWWLWWWLL",
+        "WWWWLWWWLLLWW",
+        "WWWLLWLWWWWWW",
+        "WWWWWWWLLWWWW",
+        "LLLWWWWWWLLLL",
+    };
+
+    numIslands = islandCounter.count(grid);
+
+    std::cout << "Number of islands (Case 2): " << numIslands << std::endl;
 }

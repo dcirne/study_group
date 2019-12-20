@@ -13,32 +13,18 @@
 // limitations under the License.
 
 #include <iostream>
+#include <string>
 #include <vector>
 
-enum class Type {
-    W, // Water
-    L, // Land
-};
-
-struct Cell {
-    Type type;
-    bool visited = false;
-
-    Cell(const Type type) : type(type) {}
-};
-
-struct Coord {
-    int i;
-    int j;
-
-    Coord(const int i, const int j) : i(i), j(j) {}
-};
+const std::string Land = "L";
+const std::string Water = "W";
+const std::string Visited = "V";
 
 class IslandCounter {
 public:
-    std::vector<std::vector<Cell>> grid;
+    std::vector<std::string> grid;
 
-    unsigned int count(const std::vector<std::vector<Cell>> &islandGrid) noexcept {
+    unsigned int count(std::vector<std::string> islandGrid) noexcept {
         grid = islandGrid;
         numRows = grid.size();
         numCols = grid.front().size();
@@ -46,16 +32,16 @@ public:
 
         for (size_t i = 0; i < numRows; ++i) {
             for (size_t j = 0; j < numCols; ++j) {
-                auto &cell = grid[i][j];
-                if (cell.visited) {
+                auto cell = grid.at(i).substr(j, 1);
+                if (cell.compare(Visited) == 0) {
                     continue;
                 }
 
-                if (cell.type == Type::L) {
-                    visitAnnexes(Coord(i, j));
+                if (cell == Land) {
+                    visitAnnexes(i, j);
                     ++_numIslands;
                 } else {
-                    cell.visited = true;
+                    grid.at(i).replace(j, 1, Visited);
                 }
             }
         }
@@ -72,32 +58,30 @@ private:
     size_t numCols;
     unsigned int _numIslands;
 
-    void visitAnnexes(Coord &&coord) noexcept {
-        if (!validateCoordinates(coord)) {
+    void visitAnnexes(const int i, const int j) noexcept {
+        if (!validateCoordinates(i, j)) {
             return;
         }
 
-        auto &cell = grid[coord.i][coord.j];
-        if (cell.visited || cell.type != Type::L) {
+        auto cell = grid.at(i).substr(j, 1);
+        if (cell.compare(Visited) == 0 || cell != Land) {
             return;
         }
 
-        cell.visited = true;
-        std::cout << "Land visited: " << coord.i << ", " << coord.j << std::endl;
+        grid.at(i).replace(j, 1, Visited);
+        std::cout << "Land visited: " << i << ", " << j << std::endl;
         
-        visitAnnexes(Coord(coord.i - 1, coord.j)); // North
-
-        visitAnnexes(Coord(coord.i + 1, coord.j)); // South
-
-        visitAnnexes(Coord(coord.i, coord.j + 1)); // East
-        
-        visitAnnexes(Coord(coord.i, coord.j - 1)); // West
+        for (int row = i - 1; row <= i + 1; ++row) {
+            for (int col = j - 1; col <= j + 1; ++col) {
+                visitAnnexes(row, col);
+            }
+        }
     }
 
-    bool validateCoordinates(const Coord &coord) const noexcept {
-        return coord.i >= 0 &&
-               coord.i < static_cast<int>(numRows) &&
-               coord.j >= 0 &&
-               coord.j < static_cast<int>(numCols);
+    bool validateCoordinates(const int i, const int j) const noexcept {
+        return i >= 0 &&
+               i < static_cast<int>(numRows) &&
+               j >= 0 &&
+               j < static_cast<int>(numCols);
     }
 };

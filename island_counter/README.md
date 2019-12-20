@@ -12,7 +12,7 @@ WWWWWW
 LLLWWW
 ```
 
-The expected result is for the program to find 2 islands: the cluster on the upper-right, and the cluster on the lower-left.
+The expected result for the grid above is for the program to find 2 islands; the cluster on the upper-right, and the cluster on the lower-left.
 
 In the implemented solution (`IslandCounter.hpp`), the algorithm keeps track of the cells already visited, and uses recursion to visit the next contiguous piece of land (if it exists and is within the boundaries of the grid), from the coordinates of the current cell.
 
